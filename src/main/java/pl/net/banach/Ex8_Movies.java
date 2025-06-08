@@ -70,6 +70,7 @@ public class Ex8_Movies {
                            .distinct()
                            .sorted()
                            .toList();
+
         System.out.println(genres);
         
         // Most popular genres - genre to no of movies
@@ -102,7 +103,6 @@ public class Ex8_Movies {
                 .filter(movie -> movie.actors.stream().anyMatch(actor -> actor.contains("Tom")))
                 .toList();
 
-        System.out.println("Movies with Tom (or Tommy) actor:");
-        tomMovies.stream().forEach(movie -> System.out.println(movie));
+        System.out.println("Movies with Tom (or Tommy) actor: " + tomMovies);
     }
 }
