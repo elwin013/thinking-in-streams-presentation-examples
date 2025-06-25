@@ -1,6 +1,6 @@
 # Thinking in Streams - presentation examples
 
-All examples tested using Oracle OpenJDK 24.
+All examples tested using Oracle OpenJDK 24 (available at https://jdk.java.net/24/).
 
 Examples:
 * `Ex0_*` are the playgrounds to live code
