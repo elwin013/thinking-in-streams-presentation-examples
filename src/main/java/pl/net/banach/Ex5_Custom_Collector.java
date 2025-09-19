@@ -64,5 +64,17 @@ public class Ex5_Custom_Collector {
         };
     }
 
+    private static <T> Collector<T, LinkedList<T>, LinkedList<T>> toLinkedListBis() {
+        return Collector.of(
+                LinkedList::new,
+                LinkedList::add,
+                (list1, list2) -> {
+                    list1.addAll(list2);
+                    return list1;
+                },
+                Collector.Characteristics.IDENTITY_FINISH
+        );
+    }
+
 
 }

@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Gatherer;
 
-public class Java24GathererBug {
+public class Ex99_Java24GathererBug {
 
     static <T> Gatherer<T, ?, T> limit(int size) {
         class State {

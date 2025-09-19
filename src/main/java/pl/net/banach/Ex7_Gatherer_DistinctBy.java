@@ -8,7 +8,7 @@ import java.util.stream.Gatherer;
 
 public class Ex7_Gatherer_DistinctBy {
     private static final List<String> words = Arrays.asList(
-            "Level", "Radar", "Apple", "Noon", "Civic",
+            "Level", "Radar", "Noon", "Apple" , "Civic",
             "Banana", "Deified", "Refer", "Rotor", "Kayak",
             "Window", "Madam", "Orange", "Table", "Racecar"
     );
@@ -21,8 +21,9 @@ public class Ex7_Gatherer_DistinctBy {
         System.out.println(distinctWords);
     }
 
-    private static <T, P> Gatherer<T, ?, T> distinctBy(Function<T, P> function) {
-        return Gatherer.ofSequential(() -> new HashSet<P>(),
+    public static <T, P> Gatherer<T, ?, T> distinctBy(Function<T, P> function) {
+        return Gatherer.ofSequential(
+                () -> new HashSet<P>(),
                 (state, element, downstream) -> {
                     if (!downstream.isRejecting()) {
                         if (state.add(function.apply(element))) {

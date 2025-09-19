@@ -1,9 +1,15 @@
 package pl.net.banach;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-public class Ex0_Playground_Movies {
+public class Ex8_Loops_Movies {
     public record Movie(String title, List<String> genres, int year, List<String> actors, double imdbRating) {}
 
     public static final List<Movie> movies = Arrays.asList(
@@ -62,6 +68,81 @@ public class Ex0_Playground_Movies {
     );
 
     public static void main(String[] args) {
-        
+        // List of all genres - unique
+        Set<String> unique = new HashSet<>();
+        for (var movie : movies) {
+            for (String g : movie.genres()) {
+                unique.add(g);
+            }
+        }
+
+        List<String> genres = new ArrayList<>(unique);
+        Collections.sort(genres);
+
+        System.out.println(genres);
+
+        // ------------------------------
+
+        // Most popular genres - genre to no of movies
+        Map<String, Long> mostPopularGenres = new HashMap<>();
+
+        for (Movie movie : movies) {
+            for (String genre : movie.genres) {
+                mostPopularGenres.merge(genre, 1L, Long::sum);
+            }
+        }
+
+        System.out.println(mostPopularGenres);
+
+        // ------------------------------
+
+        // The one fantasy movie in the list is...
+        Movie fantasyMovie = null;
+        for (Movie movie : movies) {
+            if (movie.genres.contains("Fantasy")) {
+                fantasyMovie = movie;
+                break; // findFirst
+            }
+        }
+        System.out.println(fantasyMovie);
+
+        // ------------------------------
+
+        // Okay, but what is the average rating per genre?
+        Map<String, double[]> acc = new HashMap<>();
+        for (Movie movie : movies) {
+            for (String genre : movie.genres) {
+                double[] sc = acc.computeIfAbsent(genre, g -> new double[2]);
+                sc[0] += movie.imdbRating;
+                sc[1] += 1;
+            }
+        }
+
+        Map<String, Double> averageRating = new HashMap<>();
+        for (Map.Entry<String, double[]> e : acc.entrySet()) {
+            double sum = e.getValue()[0];
+            double count = e.getValue()[1];
+            averageRating.put(e.getKey(), sum / count);
+        }
+        System.out.println(averageRating);
+
+
+        // ------------------------------
+
+        // Find the movies with the actor who has the name Tom. Or Tommy (anything starting with Tom)
+        List<Movie> tomMovies = new ArrayList<>();
+        for (Movie movie : movies) {
+            boolean hasTom = false;
+            for (String actor : movie.actors) {
+                if (actor.contains("Tom")) {
+                    hasTom = true;
+                    break;
+                }
+            }
+            if (hasTom) {
+                tomMovies.add(movie);
+            }
+        }
+        System.out.println("Movies with Tom (or Tommy) actor: " + tomMovies);
     }
 }

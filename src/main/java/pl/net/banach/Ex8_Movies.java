@@ -1,8 +1,12 @@
 package pl.net.banach;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Ex8_Movies {
@@ -72,14 +76,18 @@ public class Ex8_Movies {
                            .toList();
 
         System.out.println(genres);
-        
+
+        // ------------------------------
+
         // Most popular genres - genre to no of movies
         var mostPopularGenres = movies.stream()
                                       .flatMap(movie -> movie.genres.stream())
                                       .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
         
         System.out.println(mostPopularGenres);
-        
+
+        // ------------------------------
+
         // The one fantasy movie in the list is...
         var fantasyMovie = movies.stream()
                                  .filter(movie -> movie.genres.contains("Fantasy"))
@@ -87,7 +95,9 @@ public class Ex8_Movies {
                                  .orElse(null);
         
         System.out.println(fantasyMovie);
-        
+
+        // ------------------------------
+
         // Okay, but what is the average rating per genre?
         var averageRating = movies.stream()
                 .flatMap(
@@ -97,7 +107,9 @@ public class Ex8_Movies {
                 .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingDouble(Map.Entry::getValue)));
                 
         System.out.println(averageRating);
-        
+
+        // ------------------------------
+
         // Find the movies with the actor who has the name Tom. Or Tommy (anything starting with Tom)
         var tomMovies = movies.stream()
                 .filter(movie -> movie.actors.stream().anyMatch(actor -> actor.contains("Tom")))

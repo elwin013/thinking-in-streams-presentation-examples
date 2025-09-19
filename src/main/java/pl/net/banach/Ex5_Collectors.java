@@ -13,23 +13,13 @@ public class Ex5_Collectors {
 
 
     public static void main(String[] args) {
-        groupBySize();
-
-        formatNicely();
-    }
-
-
-
-    private static void groupBySize() {
         System.out.println("Grouping by size");
 
         var groupedBySize = words.stream().collect(Collectors.groupingBy(String::length, Collectors.toList()));
 
         groupedBySize.forEach((integer, strings) -> System.out.println(integer + "->" + strings));
-    }
 
-    private static void formatNicely() {
-        System.out.println("Formatting nicely with collector");
+        // Format in JSON style - String Builder
 
         var builder = new StringBuilder("[");
         for (var word : words) {
@@ -40,8 +30,9 @@ public class Ex5_Collectors {
 
         System.out.println(builder.toString());
 
-        var result = words.stream().map(s -> "\"" + s + "\"").collect(Collectors.joining(",", "[", "]"));
 
+        // Format in JSON style - collector
+        var result = words.stream().map(s -> "\"" + s + "\"").collect(Collectors.joining(",", "[", "]"));
 
         System.out.println(result);
     }
