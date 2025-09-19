@@ -13,19 +13,14 @@ public class Ex4_Multiple_steps {
 
     public static void main(String[] args) {
         var list = words.stream()
-             .filter(string -> {
-                 System.out.println("Size, processing %s".formatted(string));
-                 return string.length() > 5;
-             })
-             .filter(string -> {
-                 System.out.println("> Contains, processing %s".formatted(string));
-                 return string.contains("a");
-             })
-             .map((string -> {
-                 System.out.println(">> Map to uppercase, processing %s".formatted(string));
-                 return string.toUpperCase();
-             }))
+                        .peek(s -> System.out.println("Size, processing %s".formatted(s)))
+                        .filter(s -> s.length() > 5)
+                        .peek(s -> System.out.println("> Contains, processing %s".formatted(s)))
+                        .filter(s -> s.contains("a"))
+                        .peek(s -> System.out.println(">> Map to uppercase, processing %s".formatted(s)))
+                        .map((String::toUpperCase))
                         .toList();
+
 
         System.out.println(list);
     }
