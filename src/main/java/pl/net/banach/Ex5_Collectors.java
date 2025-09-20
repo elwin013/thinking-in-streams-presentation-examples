@@ -15,7 +15,8 @@ public class Ex5_Collectors {
     public static void main(String[] args) {
         System.out.println("Grouping by size");
 
-        var groupedBySize = words.stream().collect(Collectors.groupingBy(String::length, Collectors.toList()));
+        var groupedBySize = words.stream()
+                                 .collect(Collectors.groupingBy(String::length, Collectors.toList()));
 
         groupedBySize.forEach((integer, strings) -> System.out.println(integer + "->" + strings));
 
@@ -32,7 +33,9 @@ public class Ex5_Collectors {
 
 
         // Format in JSON style - collector
-        var result = words.stream().map(s -> "\"" + s + "\"").collect(Collectors.joining(",", "[", "]"));
+        var result = words.stream()
+                          .map(s -> "\"" + s + "\"")
+                          .collect(Collectors.joining(",", "[", "]"));
 
         System.out.println(result);
     }
