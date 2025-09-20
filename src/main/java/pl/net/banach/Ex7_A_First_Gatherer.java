@@ -27,7 +27,9 @@ public class Ex7_A_First_Gatherer {
 
 
     private static <T, R> Gatherer<T, ?, R> map(Function<T, R> mapper) {
-        return Gatherer.ofSequential((_, element, sink) -> sink.push(mapper.apply(element)));
+        return Gatherer.ofSequential(
+                (_, element, sink) -> sink.push(mapper.apply(element))
+        );
     }
 
 }
